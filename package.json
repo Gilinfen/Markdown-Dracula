@@ -1,0 +1,58 @@
+{
+  "name": "markdown-dracula",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "rimraf dist && rollup -c & sass --update ./src/styles:./dist/styles ",
+    "build": "rimraf dist && rollup -c & sass --update ./src/styles:./dist/styles ",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@types/markdown-it": "^12.2.3",
+    "@types/markdown-it-container": "^2.0.5",
+    "@types/markdown-it-emoji": "^2.0.2",
+    "@types/prismjs": "^1.26.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^13.0.1",
+    "markdown-it-anchor": "^8.6.7",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-emoji": "^2.0.2",
+    "nanoid": "^4.0.2",
+    "prismjs": "^1.29.0",
+    "reading-time": "^1.5.0",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.20.7",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "sass": "^1.62.0",
+    "typescript": "^5.0.4",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
+    "git-cz": "^4.9.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/git-cz",
+      "config": "./changelog.config.js"
+    }
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --cache --ignore-unknown"
+    ]
+  }
+}
