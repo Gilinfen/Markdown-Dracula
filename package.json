@@ -1,6 +1,6 @@
 {
   "name": "markdown-dracula",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "MIT",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -9,6 +9,9 @@
   "files": [
     "dist",
     "README.md"
+  ],
+  "keywords": [
+    "markdown-it"
   ],
   "scripts": {
     "dev": "rimraf dist && rollup -c & sass --update ./src/styles:./dist/styles ",
