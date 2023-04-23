@@ -4,6 +4,7 @@
   "license": "MIT",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -25,24 +26,25 @@
     "@types/markdown-it-container": "^2.0.5",
     "@types/markdown-it-emoji": "^2.0.2",
     "@types/prismjs": "^1.26.0",
+    "git-cz": "^4.9.0",
     "gray-matter": "^4.0.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-container": "^3.0.0",
     "markdown-it-emoji": "^2.0.2",
     "nanoid": "^4.0.2",
+    "prettier": "^3.0.0-alpha.7-for-vscode",
     "prismjs": "^1.29.0",
     "reading-time": "^1.5.0",
     "rimraf": "^5.0.0",
     "rollup": "^3.20.7",
     "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.62.0",
-    "typescript": "^5.0.4",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
-    "git-cz": "^4.9.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.0"
+    "typescript": "^5.0.4"
   },
   "config": {
     "commitizen": {

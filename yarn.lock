@@ -1687,6 +1687,11 @@ pkg-dir@^4.1.0:
   dependencies:
     find-up "^4.0.0"
 
+prettier@^3.0.0-alpha.7-for-vscode:
+  version "3.0.0-alpha.7-for-vscode"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.0-alpha.7-for-vscode.tgz#ac3798348f7077ce541e47291be01cc1766e9074"
+  integrity sha512-z4XpacIqSq2DUxHK0lR6HhNqG4Ml8ExghDyuNVnBdR5yToxWinyOOsuxAN/x7b+ltfUPm5gtRfecedR0zjzbbA==
+
 prismjs@^1.29.0:
   version "1.29.0"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
