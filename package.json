@@ -29,7 +29,6 @@
     "@types/markdown-it-container": "^2.0.5",
     "@types/markdown-it-emoji": "^2.0.2",
     "@types/prismjs": "^1.26.0",
-    "git-cz": "^4.9.0",
     "gray-matter": "^4.0.3",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
