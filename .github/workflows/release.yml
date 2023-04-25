@@ -27,4 +27,4 @@ jobs:
         run: npm install  &&  npm run build
 
       - name: Publish package on NPM 📦
-        run: npm publish
+        run: npm publish -e NPM_TOKEN=${{secrets.NPM_TOKEN}}
