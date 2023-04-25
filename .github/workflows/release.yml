@@ -22,7 +22,12 @@ jobs:
 
       - run: npx changelogithub
 
-      - name: Publish package to npm
+      - name: Log in to the registry
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm login --registry=https://registry.npmjs.org/ --scope=@ilinfen --always-auth
+
+      - name: Set NPM_TOKEN environment variable
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm install && npm publish
