@@ -24,10 +24,7 @@ jobs:
       - run: npx changelogithub
 
       - name: Install dependencies and build 🔧
-        run: npm install &&  npm run build
-
-      - name: Log in to the registry 🎸
-        run: npm login --registry=https://registry.npmjs.org/ --scope=@ilinfen --always-auth
+        run: npm install  &&  npm run build
 
       - name: Publish package on NPM 📦
         run: npm publish
