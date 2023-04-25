@@ -19,15 +19,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
+          registry-url: 'https://registry.npmjs.org'
 
       - run: npx changelogithub
 
-      - name: Log in to the registry
+      - name: Install dependencies and build 🔧
+        run: npm run build
+      - name: Publish package on NPM 📦
+        run: npm publish
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm login --registry=https://registry.npmjs.org/ --scope=@ilinfen --always-auth
-
-      - name: Set NPM_TOKEN environment variable
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm install && npm publish
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
