@@ -6,7 +6,6 @@ import matter from 'gray-matter'
 import Prism from './prismjs'
 import readingTime from 'reading-time'
 import { MarkdownItPost } from './types'
-import { getGitFileInfo } from './git'
 
 export const mdItmarkdownExample = async () => {
   const { nanoid } = await import('nanoid')
@@ -189,7 +188,6 @@ export const mdFrontmatter = async (
 
   const partHtml = mdIt.render(content)
 
-  const git: any = await getGitFileInfo(postSlug)
 
   return {
     ...(data as MarkdownItPost['frontmatter']),
@@ -198,7 +196,6 @@ export const mdFrontmatter = async (
     title_id: nanoid(),
     readingTime: readingTime(source),
     partHtml,
-    git
   }
 }
 
