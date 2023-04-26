@@ -29,6 +29,7 @@ specifiers:
   sass: ^1.62.0
   ts-loader: ^9.2.3
   ts-node: ^10.0.0
+  tslib: ^2.5.0
   typescript: ^5.0.4
 
 dependencies:
@@ -62,6 +63,7 @@ devDependencies:
   sass: 1.62.0
   ts-loader: 9.4.2_typescript@5.0.4
   ts-node: 10.9.1_typescript@5.0.4
+  tslib: 2.5.0
   typescript: 5.0.4
 
 packages:

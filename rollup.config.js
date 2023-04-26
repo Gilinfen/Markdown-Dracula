@@ -30,5 +30,5 @@ export default {
       }
     })
   ],
-  external: ['nanoid'] // 声明外部依赖项
+  external: ['tslib', 'nanoid'] // 声明外部依赖项
 }
