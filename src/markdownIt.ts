@@ -211,16 +211,13 @@ export default async function markdown(test: string): Promise<MarkdownItPost> {
 
   const html = mdIt.render(content)
 
-  const git: any = await getGitFileInfo(test)
-
   return {
     code: html,
     sidebar,
     frontmatter: {
       ...(data as MarkdownItPost['frontmatter']),
       title_id: sidebar[0].id,
-      readingTime: readingTime(content),
-      git
+      readingTime: readingTime(content)
     }
   }
 }
