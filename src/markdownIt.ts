@@ -6,6 +6,7 @@ import matter from 'gray-matter'
 import Prism from './prismjs'
 import readingTime from 'reading-time'
 import { MarkdownItPost } from './types'
+import { getGitFileInfo } from './git'
 
 export const mdItmarkdownExample = async () => {
   const { nanoid } = await import('nanoid')
@@ -188,13 +189,16 @@ export const mdFrontmatter = async (
 
   const partHtml = mdIt.render(content)
 
+  const git: any = await getGitFileInfo(postSlug)
+
   return {
     ...(data as MarkdownItPost['frontmatter']),
     slug: postSlug.replace('.md', ''),
     tags: data.tags.split(','),
     title_id: nanoid(),
     readingTime: readingTime(source),
-    partHtml
+    partHtml,
+    git
   }
 }
 
@@ -207,13 +211,16 @@ export default async function markdown(test: string): Promise<MarkdownItPost> {
 
   const html = mdIt.render(content)
 
+  const git: any = await getGitFileInfo(test)
+
   return {
     code: html,
     sidebar,
     frontmatter: {
       ...(data as MarkdownItPost['frontmatter']),
       title_id: sidebar[0].id,
-      readingTime: readingTime(content)
+      readingTime: readingTime(content),
+      git
     }
   }
 }

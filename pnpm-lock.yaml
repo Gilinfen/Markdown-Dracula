@@ -6,10 +6,12 @@ specifiers:
   '@rollup/plugin-commonjs': ^24.1.0
   '@rollup/plugin-json': ^6.0.0
   '@rollup/plugin-node-resolve': ^15.0.2
+  '@types/cross-spawn': ^6.0.2
   '@types/markdown-it': ^12.2.3
   '@types/markdown-it-container': ^2.0.5
   '@types/markdown-it-emoji': ^2.0.2
   '@types/prismjs': ^1.26.0
+  cross-spawn: ^7.0.3
   gray-matter: ^4.0.3
   husky: ^8.0.3
   lint-staged: ^13.2.0
@@ -30,10 +32,12 @@ specifiers:
   typescript: ^5.0.4
 
 dependencies:
+  '@types/cross-spawn': 6.0.2
   '@types/markdown-it': 12.2.3
   '@types/markdown-it-container': 2.0.5
   '@types/markdown-it-emoji': 2.0.2
   '@types/prismjs': 1.26.0
+  cross-spawn: 7.0.3
   gray-matter: 4.0.3
   markdown-it: 13.0.1
   markdown-it-anchor: 8.6.7_ea7kj7wzjkld5jo2noyjqxi764
@@ -470,6 +474,15 @@ packages:
       }
     dev: true
 
+  /@types/cross-spawn/6.0.2:
+    resolution:
+      {
+        integrity: sha512-KuwNhp3eza+Rhu8IFI5HUXRP0LIhqH5cAjubUvGXXthh4YYBuP2ntwEX+Cz8GJoZUHlKo247wPWOfA9LYEq4cw==
+      }
+    dependencies:
+      '@types/node': 18.16.0
+    dev: false
+
   /@types/estree/1.0.1:
     resolution:
       {
@@ -531,7 +544,6 @@ packages:
       {
         integrity: sha512-BsAaKhB+7X+H4GnSjGhJG9Qi8Tw+inU9nJDwmD5CgOmBLEI6ArdhikpLX7DjbjDRDTbqZzU2LSQNZg8WGPiSZQ==
       }
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution:
@@ -1049,7 +1061,6 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-    dev: true
 
   /dargs/7.0.0:
     resolution:
@@ -1732,7 +1743,6 @@ packages:
       {
         integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
       }
-    dev: true
 
   /jackspeak/2.1.0:
     resolution:
@@ -2414,7 +2424,6 @@ packages:
         integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==
       }
     engines: { node: '>=8' }
-    dev: true
 
   /path-key/4.0.0:
     resolution:
@@ -2781,7 +2790,6 @@ packages:
     engines: { node: '>=8' }
     dependencies:
       shebang-regex: 3.0.0
-    dev: true
 
   /shebang-regex/3.0.0:
     resolution:
@@ -2789,7 +2797,6 @@ packages:
         integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
       }
     engines: { node: '>=8' }
-    dev: true
 
   /signal-exit/3.0.7:
     resolution:
@@ -3261,7 +3268,6 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
-    dev: true
 
   /wrap-ansi/6.2.0:
     resolution:
