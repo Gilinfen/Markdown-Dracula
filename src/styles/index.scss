@@ -1,6 +1,5 @@
 :root {
   --g-blog-content-width: 740px;
-  --g-active-color: #e32850;
   --g-code-bg: #282a35;
 }
 
@@ -141,7 +140,6 @@
 
   a {
     text-decoration: none;
-    color: var(--g-active-color);
     z-index: 7;
     &:hover {
       text-decoration: underline;
