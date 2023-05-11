@@ -17,6 +17,7 @@
     "dev": "rimraf dist && rollup -c & sass --update ./src/styles:./dist/styles ",
     "build": "rimraf dist && rollup -c & sass --update ./src/styles:./dist/styles ",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "node ./test",
     "husky": "husky install"
   },
   "dependencies": {
