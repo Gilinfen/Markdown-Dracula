@@ -123,7 +123,7 @@
     padding-top: 4.6rem;
     margin-bottom: 0;
     z-index: 1;
-    cursor: pointer;
+    // cursor: pointer;
     &:hover {
       --c-opacity: 1;
     }
@@ -134,7 +134,7 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
-      user-select: none;
+      user-select: auto;
     }
   }
 
