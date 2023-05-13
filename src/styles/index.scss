@@ -119,22 +119,11 @@
   h4,
   h5,
   h6 {
-    margin-top: -3.1rem;
-    padding-top: 4.6rem;
     margin-bottom: 0;
     z-index: 1;
     // cursor: pointer;
     &:hover {
       --c-opacity: 1;
-    }
-    &:focus {
-      outline: 0 !important;
-      /* 禁用虚拟悬停效果，去除淡蓝色背景 */
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: auto;
     }
   }
 
