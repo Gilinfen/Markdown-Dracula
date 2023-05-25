@@ -2,30 +2,29 @@ import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { markdown } from 'markdown-dracula'
 import path from 'path'
 import express from 'express'
+// 启动服务器
+const port = 3000
 
 async function render() {
   const app = express()
 
   // 指定静态资源目录
-  app.use(express.static('public'))
+  app.use(express.static(path.join(process.cwd())))
 
-  // 启动服务器
-  const port = 3000
   app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`)
+    console.log(`Server running at http://localhost:${port}/public`)
   })
 }
 
 async function main() {
   const defaultPath = path.join(process.cwd(), '/public')
-  const docsPath = path.join(process.cwd(), '/docs/content.md')
+  const docsPath = path.join(process.cwd(), '/docs/index.md')
 
   try {
     mkdirSync(defaultPath)
   } catch (error) {}
 
   const { code } = await markdown(readFileSync(docsPath, 'utf-8'))
-
   writeFileSync(
     `${defaultPath}/index.html`,
     `<!DOCTYPE html>
@@ -37,11 +36,11 @@ async function main() {
       <title>Markdwond</title>
       <link
         rel="stylesheet"
-        href="../node_modules/markdown-dracula/dist/styles/index.css"
+        href=" http://localhost:${port}/node_modules/markdown-dracula/dist/styles/index.css"
       />
       <link
         rel="stylesheet"
-        href="../node_modules/markdown-dracula/dist/styles/dracula.css"
+        href="http://localhost:${port}/node_modules/markdown-dracula/dist/styles/dracula.css"
       />
     </head>
     <style>
@@ -55,7 +54,9 @@ async function main() {
       }
     </style>
     <body>
+      <body class="markdown-content">
       ${code}
+      </body>
     </body>
   </html>
   `

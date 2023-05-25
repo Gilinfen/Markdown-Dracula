@@ -117,14 +117,14 @@ export const mdItmarkdownExample = async () => {
         }
         if (tokens[idx].nesting === 1) {
           // 处理开头标记
-          return `<${tag} class="custom-container ${
+          return `<div class="custom-container ${
             m[0]
           }">${isD ? '':`<p class="custom-container-title" >${mdIt.utils.escapeHtml(
             m[1] ?? m[0]
-          )}\n</p>`}`
+          )}\n</p>`}<${tag}>`
         } else {
           // 处理结尾标记
-          return `</${tag}>\n`
+          return `</${tag}></div>\n`
         }
       }
     })
@@ -217,7 +217,8 @@ export default async function markdown(test: string): Promise<MarkdownItPost> {
   const html = mdIt.render(content)
 
   return {
-    code: `<div class="markdown-content">${html}</div>`,
+    // code: `<div class="markdown-content">${html}</div>`,
+    code: html,
     sidebar,
     frontmatter: {
       ...(data as MarkdownItPost['frontmatter']),
