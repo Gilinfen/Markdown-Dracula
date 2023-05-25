@@ -1,0 +1,70 @@
+{
+  "name": "markdown-dracula",
+  "version": "1.0.9",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "markdown-it"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "lint": "cross-env NODE_ENV=production eslint src --fix --ext .ts,.js,.cjs,.mjs",
+    "prebuild": "rimraf dist",
+    "build": "cross-env NODE_ENV=production rollup -c & sass --update ./src/styles:./dist/styles ",
+    "analyzer": "cross-env NODE_ENV=production ANALYZER=true rollup -c",
+    "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts & sass --update ./src/styles:./dist/styles ",
+    "dev:rollup": "cross-env NODE_ENV=development rollup -c -w",
+    "rm": "rimraf node_modules",
+    "start": "node ./dist/index"
+  },
+  "dependencies": {
+    "@types/markdown-it": "^12.2.3",
+    "@types/markdown-it-container": "^2.0.5",
+    "@types/markdown-it-emoji": "^2.0.2",
+    "@types/prismjs": "^1.26.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^13.0.1",
+    "markdown-it-anchor": "^8.6.7",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-emoji": "^2.0.2",
+    "nanoid": "^4.0.2",
+    "reading-time": "^1.5.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "cross-env": "^7.0.3",
+    "husky": "^8.0.3",
+    "prettier": "^3.0.0-alpha.7-for-vscode",
+    "prismjs": "^1.29.0",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.20.7",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-visualizer": "^5.9.0",
+    "sass": "^1.62.0",
+    "tslib": "^2.5.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.4"
+  }
+}

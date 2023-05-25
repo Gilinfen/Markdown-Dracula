@@ -192,12 +192,12 @@
   }
   .code-line-container {
     width: 2rem;
-    color: var(--c-text-quote);
     border-right: 2px solid var(--code-line-br);
     padding: 1.5rem 0 1.5rem 1.5rem;
+    margin: 0;
     .code-line {
       display: block;
-      padding: 1px 0;
+      color: var(--c-text-quote) !important;
     }
   }
 

@@ -7,25 +7,27 @@ import Prism from './prismjs'
 import readingTime from 'reading-time'
 import { MarkdownItPost } from './types'
 
+function generateUniqueId(n: number) {
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let uniqueId = ''
+
+  for (let i = 0; i < n; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length)
+    uniqueId += chars[randomIndex]
+  }
+
+  return uniqueId
+}
+
 export const mdItmarkdownExample = async () => {
   const { nanoid } = await import('nanoid')
+
   const mdIt = markdownIt({
     html: true,
     breaks: true,
     linkify: true,
     typographer: true,
     highlight(str, lang): string {
-      function generateUniqueId(n: number) {
-        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        let uniqueId = ''
-
-        for (let i = 0; i < n; i++) {
-          const randomIndex = Math.floor(Math.random() * chars.length)
-          uniqueId += chars[randomIndex]
-        }
-
-        return uniqueId
-      }
       const copyDom = (text: string) =>
         `<div copyCodeKey id="${generateUniqueId(
           8
@@ -77,7 +79,7 @@ export const mdItmarkdownExample = async () => {
         })
       }
 
-      return `<pre class="code-pre-box"><div class="code-line-container" >${lineDiv}</div><div class="code-mask">${maskDiv}</div>${copyDom(
+      return `<pre class="code-pre-box"><pre class="code-line-container" ><code class="language-${lang}">${lineDiv}</code></pre><div class="code-mask">${maskDiv}</div>${copyDom(
         lang.length ? lang : 'txt'
       )}<pre class="code-markdown line-numbers language-${lang}"><code class="language-${lang}">${code}</code></pre></pre>`
     }
@@ -208,7 +210,7 @@ export default async function markdown(test: string): Promise<MarkdownItPost> {
   const html = mdIt.render(content)
 
   return {
-    code: html,
+    code: `<div class="markdown-content">${html}</div>`,
     sidebar,
     frontmatter: {
       ...(data as MarkdownItPost['frontmatter']),
