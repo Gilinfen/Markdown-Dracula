@@ -19,70 +19,73 @@ function generateUniqueId(n: number) {
   return uniqueId
 }
 
+const highlight: markdownIt.Options['highlight'] = function (str, lang): string {
+  const copyDom = (text: string) =>
+    `<div copyCodeKey id="${generateUniqueId(
+      8
+    )}" class="code-tyoe">${text}</div>`
+  const reg = /\{(\d+|(\d+-\d+))(,(\d+|(\d+-\d+)))*\}/gi
+  const strArr = lang.match(reg)?.[0]
+  lang = lang.replace(reg, '')
+
+  let code = ''
+
+  try {
+    if (lang && Prism.languages[lang]) {
+      code = Prism.highlight(str, Prism.languages[lang], lang)
+    } else {
+      code = this.utils.escapeHtml(str)
+    }
+  } catch (__) {}
+
+  const codeList = (render: (i: number) => string) => {
+    const lines = code.split(/\r?\n/).length - 1
+    return [...Array(lines)].map((_, i) => render(i)).join('')
+  }
+
+  const lineDiv = codeList(i => `<span class="code-line">${i + 1}</span>`)
+  let maskDiv = ''
+  if (strArr) {
+    const strList = strArr.replace(/{|}/gi, '').split(',')
+
+    const mask = strList
+      .map(e => {
+        if (/-/g.test(e)) {
+          const list = e.split('-')
+          const fillArr = new Array(parseInt(list[list.length - 1]))
+            .fill(1)
+            .map((_, i) => i + 1)
+
+          return fillArr.slice(parseInt(list[0]) - 1)
+        }
+        return e
+      })
+      .flatMap((e: any) => {
+        if (typeof e === 'string') return parseInt(e)
+        return e
+      })
+    maskDiv = codeList(i => {
+      return mask.includes(i)
+        ? '<div class="code-mask-row"></div>'
+        : `<br/>`
+    })
+  }
+
+  return `<pre class="code-pre-box"><pre class="code-line-container" ><code class="language-${lang}">${lineDiv}</code></pre><div class="code-mask">${maskDiv}</div>${copyDom(
+    lang.length ? lang : 'txt'
+  )}<pre class="code-markdown line-numbers language-${lang}"><code class="language-${lang}">${code}</code></pre></pre>`
+}
+
 export const mdItmarkdownExample = async () => {
   const { nanoid } = await import('nanoid')
+  let tag = 'div'
 
   const mdIt = markdownIt({
     html: true,
     breaks: true,
     linkify: true,
     typographer: true,
-    highlight(str, lang): string {
-      const copyDom = (text: string) =>
-        `<div copyCodeKey id="${generateUniqueId(
-          8
-        )}" class="code-tyoe">${text}</div>`
-      const reg = /\{(\d+|(\d+-\d+))(,(\d+|(\d+-\d+)))*\}/gi
-      const strArr = lang.match(reg)?.[0]
-      lang = lang.replace(reg, '')
-
-      let code = ''
-
-      try {
-        if (lang && Prism.languages[lang]) {
-          code = Prism.highlight(str, Prism.languages[lang], lang)
-        } else {
-          code = mdIt.utils.escapeHtml(str)
-        }
-      } catch (__) {}
-
-      const codeList = (render: (i: number) => string) => {
-        const lines = code.split(/\r?\n/).length - 1
-        return [...Array(lines)].map((_, i) => render(i)).join('')
-      }
-
-      const lineDiv = codeList(i => `<span class="code-line">${i + 1}</span>`)
-      let maskDiv = ''
-      if (strArr) {
-        const strList = strArr.replace(/{|}/gi, '').split(',')
-
-        const mask = strList
-          .map(e => {
-            if (/-/g.test(e)) {
-              const list = e.split('-')
-              const fillArr = new Array(parseInt(list[list.length - 1]))
-                .fill(1)
-                .map((_, i) => i + 1)
-
-              return fillArr.slice(parseInt(list[0]) - 1)
-            }
-            return e
-          })
-          .flatMap((e: any) => {
-            if (typeof e === 'string') return parseInt(e)
-            return e
-          })
-        maskDiv = codeList(i => {
-          return mask.includes(i)
-            ? '<div class="code-mask-row"></div>'
-            : `<br/>`
-        })
-      }
-
-      return `<pre class="code-pre-box"><pre class="code-line-container" ><code class="language-${lang}">${lineDiv}</code></pre><div class="code-mask">${maskDiv}</div>${copyDom(
-        lang.length ? lang : 'txt'
-      )}<pre class="code-markdown line-numbers language-${lang}"><code class="language-${lang}">${code}</code></pre></pre>`
-    }
+    highlight
   })
     .use(anchor, {
       permalink: true,
@@ -107,17 +110,21 @@ export const mdItmarkdownExample = async () => {
       render(tokens: any, idx: any) {
         const m = tokens[idx].info.trim().split(/\s/)
         const isD = m[0] === 'details'
-
+        if(isD) {
+          tag = 'details'
+        }else {
+          tag = 'div'
+        }
         if (tokens[idx].nesting === 1) {
           // 处理开头标记
-          return `<div class="custom-container ${
+          return `<${tag} class="custom-container ${
             m[0]
-          }"><p class="custom-container-title" >${mdIt.utils.escapeHtml(
+          }">${isD ? '':`<p class="custom-container-title" >${mdIt.utils.escapeHtml(
             m[1] ?? m[0]
-          )}\n</p>`
+          )}\n</p>`}`
         } else {
           // 处理结尾标记
-          return `</div>\n`
+          return `</${tag}>\n`
         }
       }
     })

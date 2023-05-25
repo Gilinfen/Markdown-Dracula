@@ -1,10 +1,24 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { markdown } from 'markdown-dracula'
 import path from 'path'
+import express from 'express'
+
+async function render() {
+  const app = express()
+
+  // 指定静态资源目录
+  app.use(express.static('public'))
+
+  // 启动服务器
+  const port = 3000
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`)
+  })
+}
 
 async function main() {
-  const defaultPath = path.join(process.cwd(), '/test')
-  const docsPath = path.join(process.cwd(), '/docs/test.md')
+  const defaultPath = path.join(process.cwd(), '/public')
+  const docsPath = path.join(process.cwd(), '/docs/content.md')
 
   try {
     mkdirSync(defaultPath)
@@ -13,7 +27,7 @@ async function main() {
   const { code } = await markdown(readFileSync(docsPath, 'utf-8'))
 
   writeFileSync(
-    `${defaultPath}/test.html`,
+    `${defaultPath}/index.html`,
     `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -46,6 +60,8 @@ async function main() {
   </html>
   `
   )
+
+  await render()
 }
 
 main()
