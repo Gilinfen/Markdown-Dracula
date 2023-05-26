@@ -3,7 +3,7 @@ import { markdown } from 'markdown-dracula'
 import path from 'path'
 import express from 'express'
 // 启动服务器
-const port = 3000
+const port = 5000
 
 async function render() {
   const app = express()
@@ -18,13 +18,16 @@ async function render() {
 
 async function main() {
   const defaultPath = path.join(process.cwd(), '/public')
-  const docsPath = path.join(process.cwd(), '/docs/index.md')
+  const docsPath = path.join(process.cwd(), '/docs/content.md')
 
   try {
     mkdirSync(defaultPath)
   } catch (error) {}
 
-  const { code } = await markdown(readFileSync(docsPath, 'utf-8'))
+  const { code, sidebar, frontmatter } = await markdown(
+    readFileSync(docsPath, 'utf-8')
+  )
+
   writeFileSync(
     `${defaultPath}/index.html`,
     `<!DOCTYPE html>
@@ -49,13 +52,12 @@ async function main() {
         padding: 0;
       }
       body {
-        width: 1200px;
         margin: 0 auto;
       }
     </style>
     <body>
-      <body class="markdown-content">
-      ${code}
+      <body>
+        ${code}
       </body>
     </body>
   </html>

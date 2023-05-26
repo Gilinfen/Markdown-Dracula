@@ -98,23 +98,29 @@ export default defineConfig([
         input: 'src/index.ts',
         external,
         output: [
-            {
-                file: 'dist/index.js', // 生成 cjs
-                format: 'cjs',
-                name: outputName,
-                sourcemap: sourceMap,
-            },
-            {
-                file: 'dist/index.mjs', // 生成 esm
-                format: 'esm',
-                name: outputName,
-                sourcemap: sourceMap,
-            },
+          {
+            dir: 'dist',
+            format: 'cjs',
+            name: outputName,
+            sourcemap: sourceMap,
+          },
+          {
+            dir: 'dist',
+            format: 'esm',
+            name: outputName,
+            sourcemap: sourceMap,
+            entryFileNames: '[name].mjs', // 指定 .mjs 文件名模板
+          },
         ],
         plugins: getPlugins({
             isBrowser: false,
             isDeclaration: false,
             isMin: false,
         }),
+        // manualChunks(id) {
+        //   if (id.includes('prismjs')) {
+        //     return 'prismjs';
+        //   }
+        // },
     },
 ])

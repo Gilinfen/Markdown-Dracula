@@ -60,6 +60,8 @@
   --c-blockquote-bef: #ff6969;
   --c-inline-code-color: #c5411f;
   --c-inline-code-color-bg: #f8f8f8;
+  --c-code-pre-header: 30px;
+  --c-code-pre-header-bg: #151524;
   --t-color: 0.3s ease;
   --t-transform: 0.3s ease;
   --font-family-code: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -68,11 +70,13 @@
   --code-ln-wrapper-width: 3.5rem;
   --code-type-text: #79799b;
   --code-line-br: #121522;
-  --code-line-br-row: var(--g-code-bg);
+  --code-line-br-row: #000000;
   --c-opacity: 0;
+  --copy-opacity:0;
+  --c-pre-con-mh:1000px;
 }
 
-.markdown-content {
+.markdown-dracula {
   position: relative;
   padding: 1.5rem;
   max-width: var(--content-width);
@@ -167,38 +171,110 @@
       // transition: background-color var(--t-color);
     }
   }
-
   .code-pre-box {
     display: flex;
+    flex-wrap: wrap;
     padding: 0;
     background: var(--background);
-  }
-
-  .code-markdown {
-    flex: 1;
-    margin-bottom: 0.01rem;
-    background-color: transparent;
-  }
-  .code-line-container {
-    width: 2rem;
-    border-right: 2px solid var(--code-line-br);
-    padding: 1.5rem 0 1.5rem 1.5rem;
-    margin: 0;
-    .code-line {
-      display: block;
-      color: var(--c-text-quote) !important;
+    &:hover {
+      --copy-opacity:1;
     }
-  }
+    .code-pre-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      height: var(--c-code-pre-header);
+      border-bottom: 1px solid var(--code-line-br);
+      background-color: var(--c-code-pre-header-bg);
+      .code-pre-header-tools {
+        $colors: (
+          red: #f05751,
+          yellow: #f7c558,
+          green: #50d155
+        );
+        display: flex;
+        align-items: center;
+        padding: 0 4px;
+        .code-pre-header-tool {
+          width: 12px;
+          height: 12px;
+          margin: 0 4px;
+          border-radius: 50%;
+          background-color: #fff;
+        }
+        @each $color, $value in $colors {
+          .#{"#{$color}"} {
+            background-color: #{"#{$value}"};
+            cursor: pointer;
+          }
+        }
+      }
+      .copy-box {
+        display: flex;
+        align-items: center;
+        .copy {
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+          transform: scale(var(--copy-opacity));
+          transition: all .3s cubic-bezier(0.66, 0.01, 0, 1.26);
+          fill: #54546e;
+          cursor: pointer;
+          &:active {
+            fill: #fff;
+          }
+        }
+        .code-tyoe {
+          flex: 1;
+          color: var(--code-type-text);
+          transition: all 0.3s ease;
+          font-size: 1rem;
+          margin-right: 1rem;
+          max-width: 100px;
+          overflow: hidden;
+        }
+      }
+    }
 
-  .code-mask {
-    position: absolute;
-    width: 100%;
-    height: calc(100%);
-    z-index: 1;
-    line-height: 1.5rem;
-    .code-mask-row {
-      background-color: var(--code-line-br-row);
-      height: 1.5rem;
+    .code-pre-container {
+      display: flex;
+      width: 100%;
+      height: auto;
+      max-height: var(--c-pre-con-mh);
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out;
+      .code-markdown {
+        flex: 1;
+        margin-bottom: 0.01rem;
+        background-color: transparent;
+        overflow-y: hidden;
+      }
+      .code-line-container {
+        width: 2rem;
+        border-right: 2px solid var(--code-line-br);
+        padding: 1.5rem 0 1.5rem 1.5rem;
+        margin: 0;
+        border-radius: 0;
+        .code-line {
+          display: block;
+          color: var(--c-text-quote) !important;
+        }
+      }
+
+      .code-mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        line-height: 1.5rem;
+        .code-mask-row {
+          background-color: var(--code-line-br-row);
+          height: 1.5rem;
+        }
+      }
     }
   }
 
@@ -208,6 +284,9 @@
       margin: 0.85rem -2.5rem;
       border-radius: 0;
     }
+    .code-pre-header {
+      border-radius: 0;
+    }
 
     .custom-container {
       pre {
@@ -215,27 +294,6 @@
         border-radius: 6px;
       }
     }
-  }
-
-  .code-tyoe {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.8rem;
-    padding: 0.2rem 0.5rem 0.3rem 0.5rem;
-    z-index: 3;
-    color: var(--code-type-text);
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-
-    &:hover {
-      cursor: pointer;
-      --code-type-text: #ffffff;
-    }
-  }
-
-  .code-type-success {
-    background-color: #3eaf7c;
   }
 
   .custom-container {
@@ -250,20 +308,34 @@
     }
   }
 
-  .tip {
-    border-color: var(--c-tip);
-    background-color: var(--c-tip-bg);
-    color: var(--c-tip-text);
+  $alert-colors: (
+    tip: (
+      border: var(--c-tip),
+      bg: var(--c-tip-bg),
+      text: var(--c-tip-text)
+    ),
+    warning: (
+      border: var(--c-warning),
+      bg: var(--c-warning-bg),
+      text: var(--c-warning-text)
+    ),
+    danger: (
+      border: var(--c-danger),
+      bg: var(--c-danger-bg),
+      text: var(--c-danger-text)
+    )
+  );
+
+  @mixin alert-style($color) {
+    border-color: map-get($color, border);
+    background-color: map-get($color, bg);
+    color: map-get($color, text);
   }
-  .warning {
-    border-color: var(--c-warning);
-    background-color: var(--c-warning-bg);
-    color: var(--c-warning-text);
-  }
-  .danger {
-    border-color: var(--c-danger);
-    background-color: var(--c-danger-bg);
-    color: var(--c-danger-text);
+
+  @each $alert, $colors in $alert-colors {
+    .#{$alert} {
+      @include alert-style($colors);
+    }
   }
   .details {
     display: block;
@@ -273,6 +345,11 @@
     padding: 1.6em;
     border: none;
     background-color: var(--c-details-bg);
+    overflow: hidden;
+    transition: height 0.3s ease-out;
+    &[open] {
+      height: auto;
+    }
     .custom-container-title {
       margin: 0;
     }
@@ -289,23 +366,22 @@
     position: relative;
     border-left: none;
     margin: 1rem 0;
-
+    &:before {
+      display: block;
+      position: absolute;
+      content: '';
+      width: 4px;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background-color: var(--c-blockquote-bef);
+      border-radius: 2px;
+    }
     p {
       margin: 0;
     }
   }
 
-  blockquote:before {
-    display: block;
-    position: absolute;
-    content: '';
-    width: 4px;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background-color: var(--c-blockquote-bef);
-    border-radius: 2px;
-  }
 
   table {
     text-align: left;
