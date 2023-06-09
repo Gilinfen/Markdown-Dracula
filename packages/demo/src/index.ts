@@ -18,7 +18,7 @@ async function render() {
 
 async function main() {
   const defaultPath = path.join(process.cwd(), '/public')
-  const docsPath = path.join(process.cwd(), '/docs/content.md')
+  const docsPath = path.join(process.cwd(), '/src/docs/content.md')
 
   try {
     mkdirSync(defaultPath)
@@ -59,6 +59,11 @@ async function main() {
       <body>
         ${code}
       </body>
+      <script
+        type="text/javascript"
+        defer
+        src="http://localhost:${port}/node_modules/markdown-dracula/dist/lib/copy.js"
+      ></script>
     </body>
   </html>
   `
