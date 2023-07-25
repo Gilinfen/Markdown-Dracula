@@ -48,10 +48,10 @@ export const mdItmarkdownExample = async (isHeader:boolean = true) => {
 
       const codeList = (render: (i: number) => string) => {
         const lines = code.split(/\r?\n/).length - 1
-        return [...Array(lines)].map((_, i) => render(i)).join('')
+        return [...Array(lines)].map((_, i) => render(i + 1)).join('')
       }
 
-      const lineDiv = codeList(i => `<span class="code-line">${i + 1}</span>`)
+      const lineDiv = codeList(i => `<span class="code-line">${i}</span>`)
       let maskDiv = ''
       if (strArr) {
         const strList = strArr.replace(/{|}/gi, '').split(',')
@@ -78,6 +78,7 @@ export const mdItmarkdownExample = async (isHeader:boolean = true) => {
             : `<br/>`
         })
       }
+      const copyId = generateUniqueId(8)
       const header = `
       <div class="code-pre-header">
         <div class="code-pre-header-tools">
@@ -87,9 +88,7 @@ export const mdItmarkdownExample = async (isHeader:boolean = true) => {
         </div>
         <div class="copy-box">
           <svg viewBox="0 0 512 512"
-            copyCodeKey id="${generateUniqueId(
-              8
-            )}"
+            copyCodeKey id="${copyId}"
             class="copy"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216-96.7 216-216 216z"/>
@@ -102,7 +101,7 @@ export const mdItmarkdownExample = async (isHeader:boolean = true) => {
         </div>
       </div>`
 
-      return `<pre class="code-pre-box">${isHeader ? header.replace(/\n/g,''):''}<div class="code-pre-container"><pre class="code-line-container" ><code class="language-${lang}">${lineDiv}</code></pre><div class="code-mask">${maskDiv}</div><pre class="code-markdown line-numbers language-${lang}"><code class="language-${lang}">${code}</code></pre></div></pre>`
+      return `<pre class="code-pre-box">${isHeader ? header.replace(/\n/g,''):''}<div class="code-pre-container"><pre class="code-line-container" ><code class="language-${lang}">${lineDiv}</code></pre><div class="code-mask">${maskDiv}</div><pre data-copyid="${copyId}" class="code-markdown line-numbers language-${lang}"><code class="language-${lang}">${code}</code></pre></div></pre>`
     }
   })
     .use(anchor, {

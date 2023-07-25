@@ -73,7 +73,7 @@
   --code-line-br-row: #000000;
   --c-opacity: 0;
   --copy-opacity: 0;
-  --c-pre-con-mh: 5000px;
+  --c-pre-con-mh: 3000px;
 }
 
 .markdown-dracula {
@@ -208,7 +208,7 @@
         @each $color, $value in $colors {
           .#{"#{$color}"} {
             background-color: #{"#{$value}"};
-            cursor: pointer;
+            // cursor: pointer;
           }
         }
       }
@@ -235,6 +235,15 @@
           margin-right: 1rem;
           max-width: 100px;
           overflow: hidden;
+          &:focus {
+            outline: 0 !important;
+            /* 禁用虚拟悬停效果，去除淡蓝色背景 */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+          }
         }
       }
     }
@@ -243,19 +252,20 @@
       display: flex;
       width: 100%;
       height: auto;
-      max-height: var(--c-pre-con-mh);
+      // max-height: var(--c-pre-con-mh);
       overflow: hidden;
-      transition: max-height 0.3s ease-in-out;
+      // transition: max-height 0.5s ease-in-out;
       .code-markdown {
         flex: 1;
         margin-bottom: 0.01rem;
         background-color: transparent;
         overflow-y: hidden;
+        padding: 0.5rem;
       }
       .code-line-container {
         width: 2rem;
         border-right: 2px solid var(--code-line-br);
-        padding: 1.5rem 0 1.5rem 1.5rem;
+        padding: 1rem 0 1rem 1.5rem;
         margin: 0;
         border-radius: 0;
         .code-line {
@@ -267,9 +277,10 @@
       .code-mask {
         position: absolute;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 1.5rem);
         z-index: 1;
         line-height: 1.5rem;
+        margin-top: 1.06rem;
         .code-mask-row {
           background-color: var(--code-line-br-row);
           height: 1.5rem;

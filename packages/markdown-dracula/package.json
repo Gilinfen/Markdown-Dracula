@@ -1,6 +1,6 @@
 {
   "name": "markdown-dracula",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -25,7 +25,7 @@
   "scripts": {
     "lint": "cross-env NODE_ENV=production eslint src --fix --ext .ts,.js,.cjs,.mjs",
     "prebuild": "rimraf dist",
-    "build": "rimraf ./dist & cross-env NODE_ENV=production rollup -c & sass --update ./src/styles:./dist/styles ",
+    "build": "rimraf ./dist & cross-env NODE_ENV=production rollup -c & sass --update ./src/styles:./dist/styles & pnpm cpx \"src/lib/*.js\" dist/lib",
     "analyzer": "cross-env NODE_ENV=production ANALYZER=true rollup -c",
     "dev": "rimraf ./dist & cross-env NODE_ENV=development ts-node-dev src/index.ts & sass --update ./src/styles:./dist/styles ",
     "dev:rollup": "cross-env NODE_ENV=development rollup -c -w",
@@ -54,18 +54,19 @@
     "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.3",
     "@rollup/plugin-typescript": "^11.1.1",
+    "cpx": "^1.5.0",
     "cross-env": "^7.0.3",
     "husky": "^8.0.3",
     "prettier": "^3.0.0-alpha.7-for-vscode",
     "prismjs": "^1.29.0",
     "rimraf": "^5.0.0",
     "rollup": "^3.20.7",
-    "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.62.0",
-    "tslib": "^2.5.0",
     "ts-node": "^10.0.0",
+    "tslib": "^2.5.0",
     "typescript": "^5.0.4"
   }
 }

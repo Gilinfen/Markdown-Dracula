@@ -102,13 +102,13 @@ export default defineConfig([
             dir: 'dist',
             format: 'cjs',
             name: outputName,
-            sourcemap: sourceMap,
+            // sourcemap: sourceMap,
           },
           {
             dir: 'dist',
             format: 'esm',
             name: outputName,
-            sourcemap: sourceMap,
+            // sourcemap: sourceMap,
             entryFileNames: '[name].mjs', // 指定 .mjs 文件名模板
           },
         ],
@@ -117,10 +117,10 @@ export default defineConfig([
             isDeclaration: false,
             isMin: false,
         }),
-        // manualChunks(id) {
-        //   if (id.includes('prismjs')) {
-        //     return 'prismjs';
-        //   }
-        // },
+        manualChunks(id) {
+          if (id.includes('prismjs')) {
+            return 'prismjs';
+          }
+        },
     },
 ])
