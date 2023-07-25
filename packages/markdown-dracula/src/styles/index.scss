@@ -72,8 +72,8 @@
   --code-line-br: #121522;
   --code-line-br-row: #000000;
   --c-opacity: 0;
-  --copy-opacity:0;
-  --c-pre-con-mh:1000px;
+  --copy-opacity: 0;
+  --c-pre-con-mh: 5000px;
 }
 
 .markdown-dracula {
@@ -245,7 +245,7 @@
       height: auto;
       max-height: var(--c-pre-con-mh);
       overflow: hidden;
-      transition: max-height 0.5s ease-in-out;
+      transition: max-height 0.3s ease-in-out;
       .code-markdown {
         flex: 1;
         margin-bottom: 0.01rem;

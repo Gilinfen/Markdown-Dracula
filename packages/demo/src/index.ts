@@ -3,7 +3,7 @@ import { markdown } from 'markdown-dracula'
 import path from 'path'
 import express from 'express'
 // 启动服务器
-const port = 5000
+const port = 7689
 
 async function render() {
   const app = express()

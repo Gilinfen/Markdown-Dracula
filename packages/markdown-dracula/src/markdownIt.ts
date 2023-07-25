@@ -213,7 +213,7 @@ export const mdFrontmatter = async (
   return {
     ...(data as MarkdownItPost['frontmatter']),
     slug: postSlug.replace('.md', ''),
-    tags: data.tags.split(','),
+    tags: data.tags?.split(','),
     title_id: nanoid(),
     readingTime: readingTime(source),
     partHtml
